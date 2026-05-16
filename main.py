@@ -3,7 +3,24 @@ gastos = []
 
 # Funciones vacías que los demás llenarán
 def registrar_gasto():
-    pass # El estudiante 2 programará aquí
+    print("\n--- REGISTRAR NUEVO GASTO ---")
+    placa = input("Placa del vehículo: ").strip().upper()
+    concepto = input("Concepto (Ej: Gasolina, Peaje): ").strip().capitalize()
+    
+    # Validar que el valor sea un número
+    while True:
+        valor_str = input("Valor ($): ").strip()
+        try:
+            valor = float(valor_str)
+            if valor > 0:
+                break
+            print("  ⚠ El valor debe ser mayor a 0.")
+        except ValueError:
+            print("  ⚠ Ingrese un número válido.")
+    
+    # Guardar en la lista como diccionario
+    gastos.append({"placa": placa, "concepto": concepto, "valor": valor})
+    print("  ✅ Gasto registrado exitosamente.")
 
 def mostrar_resumen():
     pass # El estudiante 3 programará aquí
