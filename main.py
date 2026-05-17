@@ -1,7 +1,6 @@
 # Lista principal de datos
 gastos = []
 
-# Funciones vacías que los demás llenarán
 def registrar_gasto():
     print("\n--- REGISTRAR NUEVO GASTO ---")
     placa = input("Placa del vehículo: ").strip().upper()
@@ -18,15 +17,39 @@ def registrar_gasto():
         except ValueError:
             print("  ⚠ Ingrese un número válido.")
     
-    # Guardar en la lista como diccionario
     gastos.append({"placa": placa, "concepto": concepto, "valor": valor})
     print("  ✅ Gasto registrado exitosamente.")
 
 def mostrar_resumen():
-    pass # El estudiante 3 programará aquí
+    print("\n--- RESUMEN DE GASTOS ---")
+    if len(gastos) == 0:
+        print("  📭 No hay gastos registrados.")
+        return
+    
+    total = 0
+    for gasto in gastos:
+        total += gasto["valor"]
+        print(f"  Placa: {gasto['placa']} | Concepto: {gasto['concepto']} | Valor: ${gasto['valor']:,.2f}")
+    
+    print("-" * 40)
+    print(f"  💰 TOTAL ACUMULADO: ${total:,.2f}")
 
 def buscar_gastos():
-    pass # El estudiante 4 programará aquí
+    print("\n--- BUSCAR GASTOS POR PLACA ---")
+    if len(gastos) == 0:
+        print("  📭 No hay gastos registrados.")
+        return
+        
+    placa_buscar = input("Ingrese la placa a buscar: ").strip().upper()
+    encontrado = False
+    
+    for gasto in gastos:
+        if gasto["placa"] == placa_buscar:
+            encontrado = True
+            print(f"  Concepto: {gasto['concepto']} | Valor: ${gasto['valor']:,.2f}")
+    
+    if not encontrado:
+        print(f"  ❌ No se encontraron gastos para la placa: {placa_buscar}")
 
 def mostrar_menu():
     print("\n" + "=" * 40)
