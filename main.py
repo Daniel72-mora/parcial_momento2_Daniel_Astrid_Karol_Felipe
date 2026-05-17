@@ -13,17 +13,17 @@ def registrar_gasto():
             valor = float(valor_str)
             if valor > 0:
                 break
-            print("  ⚠ El valor debe ser mayor a 0.")
+            print("   El valor debe ser mayor a 0.")
         except ValueError:
-            print("  ⚠ Ingrese un número válido.")
+            print("   Ingrese un número válido.")
     
     gastos.append({"placa": placa, "concepto": concepto, "valor": valor})
-    print("  ✅ Gasto registrado exitosamente.")
+    print("   Gasto registrado exitosamente.")
 
 def mostrar_resumen():
     print("\n--- RESUMEN DE GASTOS ---")
     if len(gastos) == 0:
-        print("  📭 No hay gastos registrados.")
+        print("   No hay gastos registrados.")
         return
     
     total = 0
@@ -32,12 +32,13 @@ def mostrar_resumen():
         print(f"  Placa: {gasto['placa']} | Concepto: {gasto['concepto']} | Valor: ${gasto['valor']:,.2f}")
     
     print("-" * 40)
-    print(f"  💰 TOTAL ACUMULADO: ${total:,.2f}")
+    print(f"   TOTAL ACUMULADO: ${total:,.2f}")
 
+# Función de búsqueda por placa - Desarrollado por Astrid Polanco
 def buscar_gastos():
     print("\n--- BUSCAR GASTOS POR PLACA ---")
     if len(gastos) == 0:
-        print("  📭 No hay gastos registrados.")
+        print("   No hay gastos registrados.")
         return
         
     placa_buscar = input("Ingrese la placa a buscar: ").strip().upper()
@@ -49,7 +50,7 @@ def buscar_gastos():
             print(f"  Concepto: {gasto['concepto']} | Valor: ${gasto['valor']:,.2f}")
     
     if not encontrado:
-        print(f"  ❌ No se encontraron gastos para la placa: {placa_buscar}")
+        print(f"   No se encontraron gastos para la placa: {placa_buscar}")
 
 def mostrar_menu():
     print("\n" + "=" * 40)
