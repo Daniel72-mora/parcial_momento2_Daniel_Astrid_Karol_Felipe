@@ -1,4 +1,4 @@
-# Lista principal de datos
+#Daniel Mora, Astrid Polanco, Felipe Guzman, Karol Rodriguez Lista principal de datos
 gastos = []
 
 def registrar_gasto():
