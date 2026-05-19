@@ -1,4 +1,5 @@
-#Daniel Mora, Astrid Polanco, Felipe Guzman, Karol Rodriguez Lista principal de datos
+# Daniel Mora, Astrid Polanco, Felipe Guzman, Karol Rodriguez 
+# Lista principal de datos
 gastos = []
 
 def registrar_gasto():
@@ -52,6 +53,51 @@ def buscar_gastos():
     if not encontrado:
         print(f"   No se encontraron gastos para la placa: {placa_buscar}")
 
+# --- NUEVA FUNCIÓN: ELIMINAR GASTO ---
+def eliminar_gasto():
+    print("\n--- ELIMINAR GASTO POR PLACA ---")
+    if len(gastos) == 0:
+        print("   No hay gastos registrados.")
+        return
+
+    placa_buscar = input("Ingrese la placa del vehículo para ver sus gastos: ").strip().upper()
+    
+    # Creamos una lista temporal para guardar los gastos que coinciden y sus posiciones reales en la lista 'gastos'
+    coincidencias = []
+    
+    # Buscamos y enumeramos los gastos de esa placa
+    for indice_real, gasto in enumerate(gastos):
+        if gasto["placa"] == placa_buscar:
+            coincidencias.append((indice_real, gasto))
+            
+    if len(coincidencias) == 0:
+        print(f"   No se encontraron gastos para la placa: {placa_buscar}")
+        return
+
+    # Mostramos los gastos encontrados con un número de opción para el usuario
+    print(f"\nGastos encontrados para la placa {placa_buscar}:")
+    for i, (indice_real, gasto) in enumerate(coincidencias, start=1):
+        print(f"  [{i}] Concepto: {gasto['concepto']} | Valor: ${gasto['valor']:,.2f}")
+
+    # Validamos la selección del usuario
+    while True:
+        seleccion_str = input("\nIngrese el número del gasto que desea eliminar (o '0' para cancelar): ").strip()
+        try:
+            seleccion = int(seleccion_str)
+            if seleccion == 0:
+                print("   Operación cancelada.")
+                return
+            if 1 <= seleccion <= len(coincidencias):
+                # Obtenemos el índice real en la lista principal y lo eliminamos usando pop()
+                indice_a_borrar = coincidencias[seleccion - 1][0]
+                gasto_eliminado = gastos.pop(indice_a_borrar)
+                print(f"   ¡Éxito! Se eliminó el gasto de '{gasto_eliminado['concepto']}' por ${gasto_eliminado['valor']:,.2f}")
+                return
+            else:
+                print(f"   Por favor, elija un número entre 1 y {len(coincidencias)}.")
+        except ValueError:
+            print("   Ingrese un número válido.")
+
 def mostrar_menu():
     print("\n" + "=" * 40)
     print("   GESTOR DE GASTOS DE VEHÍCULOS ")
@@ -59,13 +105,14 @@ def mostrar_menu():
     print("  1. Registrar gasto")
     print("  2. Ver resumen de gastos")
     print("  3. Buscar gastos por placa")
-    print("  4. Salir")
+    print("  4. Eliminar gasto") # Opción añadida
+    print("  5. Salir")            # Cambió de 4 a 5
     print("=" * 40)
 
 def main():
     while True:
         mostrar_menu()
-        opcion = input("  Seleccione una opción (1-4): ").strip()
+        opcion = input("  Seleccione una opción (1-5): ").strip()
         
         if opcion == "1":
             registrar_gasto()
@@ -73,7 +120,9 @@ def main():
             mostrar_resumen()
         elif opcion == "3":
             buscar_gastos()
-        elif opcion == "4":
+        elif opcion == "4": # Caso añadido
+            eliminar_gasto()
+        elif opcion == "5": # Cambió de 4 a 5
             print("\n   ¡Hasta pronto!\n")
             break
         else:
